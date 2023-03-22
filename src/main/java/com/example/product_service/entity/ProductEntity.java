@@ -22,8 +22,8 @@ public class ProductEntity {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "create")
-    private String create;
+    @Column(name = "created")
+    private String created;
 
     public Long getId() {
         return id;
@@ -65,11 +65,11 @@ public class ProductEntity {
         this.status = status;
     }
 
-    public String getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(String create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 }

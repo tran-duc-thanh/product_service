@@ -19,8 +19,8 @@ public class CategoryEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "create")
-    private String create;
+    @Column(name = "created")
+    private String created;
 
     public Long getId() {
         return id;
@@ -54,11 +54,11 @@ public class CategoryEntity {
         this.description = description;
     }
 
-    public String getCreate() {
-        return create;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCreate(String create) {
-        this.create = create;
+    public void setCreated(String created) {
+        this.created = created;
     }
 }
