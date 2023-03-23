@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductEntity> getAll ();
+    List<ProductEntity> getAllByCategory (Long categoryId);
     ProductEntity getOne (Long id);
     ProductEntity add (ProductEntity product);
     ProductEntity update (ProductEntity product);

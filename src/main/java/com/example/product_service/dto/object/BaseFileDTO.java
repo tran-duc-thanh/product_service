@@ -1,4 +1,4 @@
-package com.example.product_service.dto;
+package com.example.product_service.dto.object;
 
 public class BaseFileDTO {
     private Long id;

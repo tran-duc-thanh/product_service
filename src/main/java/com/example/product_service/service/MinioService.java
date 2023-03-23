@@ -1,6 +1,6 @@
 package com.example.product_service.service;
 
-import com.example.product_service.dto.BaseFileDTO;
+import com.example.product_service.dto.object.BaseFileDTO;
 import io.minio.GetObjectArgs;
 import io.minio.ObjectWriteResponse;
 import io.minio.PutObjectArgs;

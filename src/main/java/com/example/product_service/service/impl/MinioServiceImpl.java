@@ -1,15 +1,17 @@
 package com.example.product_service.service.impl;
 
-import com.example.product_service.dto.BaseFileDTO;
+import com.example.product_service.dto.object.BaseFileDTO;
 import com.example.product_service.service.MinioService;
 import com.example.product_service.utils.FileUtils;
 import io.minio.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+@Service
 public class MinioServiceImpl implements MinioService {
 
     private final MinioClient minioClient;
