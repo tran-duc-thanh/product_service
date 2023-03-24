@@ -9,11 +9,12 @@ public class ProductDTO {
     private String created;
     private String categoryName;
     private String categoryCode;
+    private String pathImages;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String title, Integer quantity, Double price, Integer status, String created, String categoryName, String categoryCode) {
+    public ProductDTO(Long id, String title, Integer quantity, Double price, Integer status, String created, String categoryName, String categoryCode, String pathImages) {
         this.id = id;
         this.title = title;
         this.quantity = quantity;
@@ -22,6 +23,7 @@ public class ProductDTO {
         this.created = created;
         this.categoryName = categoryName;
         this.categoryCode = categoryCode;
+        this.pathImages = pathImages;
     }
 
     public Long getId() {
@@ -86,5 +88,13 @@ public class ProductDTO {
 
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
+    }
+
+    public String getPathImages() {
+        return pathImages;
+    }
+
+    public void setPathImages(String pathImages) {
+        this.pathImages = pathImages;
     }
 }

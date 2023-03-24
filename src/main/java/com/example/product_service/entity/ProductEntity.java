@@ -1,9 +1,27 @@
 package com.example.product_service.entity;
 
+import com.example.product_service.dto.object.ProductDTO;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "product")
+@SqlResultSetMappings(value = {
+        @SqlResultSetMapping(name = "productMapping", classes = {
+                @ConstructorResult(targetClass = ProductDTO.class,
+                        columns = {
+                                @ColumnResult(name = "id", type = Long.class),
+                                @ColumnResult(name = "title", type = String.class),
+                                @ColumnResult(name = "quantity", type = Integer.class),
+                                @ColumnResult(name = "price", type = Double.class),
+                                @ColumnResult(name = "status", type = Integer.class),
+                                @ColumnResult(name = "created", type = String.class),
+                                @ColumnResult(name = "categoryName", type = String.class),
+                                @ColumnResult(name = "categoryCode", type = String.class),
+                                @ColumnResult(name = "pathImages", type = String.class),
+                        })
+        }),
+})
 public class ProductEntity {
     @Id
     @Column(name = "id")

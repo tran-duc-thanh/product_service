@@ -22,4 +22,22 @@ public class DataUtils {
     public static boolean isNullOrEmpty (final Object obj) {
         return obj == null || obj.toString().isEmpty();
     }
+
+    public static Long safeToLong (Object obj) {
+        return safeToLong(obj, null);
+    }
+
+    public static Long safeToLong (Object obj, Long defaultValue) {
+        if (obj == null) {
+            return defaultValue;
+        }
+        if (obj instanceof Long) {
+            return (Long) obj;
+        }
+        try {
+            return Long.valueOf(obj.toString());
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
 }
