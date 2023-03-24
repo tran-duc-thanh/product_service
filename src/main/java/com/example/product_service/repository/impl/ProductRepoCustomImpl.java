@@ -34,6 +34,9 @@ public class ProductRepoCustomImpl implements ProductRepoCustom {
         sql.append(" JOIN category c ON c.id = pc.category_id");
         sql.append(" WHERE 1=1");
 
+        if (!DataUtils.isNullOrEmpty(dataSearch.getKeySearch())) {
+            sql.append(" AND p.title LIKE :key");
+        }
 
         if (DataUtils.isNullOrEmpty(pageable)) {
             sqlFinal = "SELECT COUNT(1) FROM (" + sql + ") p";
@@ -41,9 +44,17 @@ public class ProductRepoCustomImpl implements ProductRepoCustom {
             sql.append(" ORDER BY ");
             Sort sort = pageable.getSort();
             sort.forEach(val -> {
-//                sql.append()
+                sql.append(val.getProperty()).append(" ").append(val.getDirection().name()).append(",");
             });
+            sql.deleteCharAt(sql.length() - 1);
+            sqlFinal = sql.toString();
         }
-        return null;
+        Query query = DataUtils.isNullOrEmpty(pageable) ? em.createNativeQuery(sqlFinal, "") : em.createNativeQuery(sqlFinal);
+        if (DataUtils.isNullOrEmpty(pageable)) {
+            query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+            query.setMaxResults(pageable.getPageSize());
+        }
+        params.forEach(query::setParameter);
+        return query;
     }
 }
