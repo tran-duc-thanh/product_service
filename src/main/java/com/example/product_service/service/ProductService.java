@@ -2,6 +2,7 @@ package com.example.product_service.service;
 
 import com.example.product_service.dto.object.ProductDTO;
 import com.example.product_service.dto.request.SearchProductRequestDTO;
+import com.example.product_service.entity.ImageEntity;
 import com.example.product_service.entity.ProductEntity;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,7 @@ public interface ProductService {
     ProductEntity add (ProductEntity product);
     ProductEntity update (ProductEntity product);
     void delete (Long productId);
-    void uploadImg (MultipartFile[] files);
+    List<ImageEntity> uploadImg (MultipartFile[] files, Long productId);
     ByteArrayResource downloadImg (String path);
     void removeImg (String path);
 }

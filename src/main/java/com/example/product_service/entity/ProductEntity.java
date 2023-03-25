@@ -16,9 +16,6 @@ import javax.persistence.*;
                                 @ColumnResult(name = "price", type = Double.class),
                                 @ColumnResult(name = "status", type = Integer.class),
                                 @ColumnResult(name = "created", type = String.class),
-                                @ColumnResult(name = "categoryName", type = String.class),
-                                @ColumnResult(name = "categoryCode", type = String.class),
-                                @ColumnResult(name = "pathImages", type = String.class),
                         })
         }),
 })

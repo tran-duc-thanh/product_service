@@ -43,10 +43,8 @@ public class ProductRepoCustomImpl implements ProductRepoCustom {
         String sqlFinal;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.id id, p.title title, p.quantity quantity, p.price price, p.status status");
-        sql.append(", p.created created, c.name categoryName, c.code categoryCode");
-        sql.append(", (SELECT GROUP_CONCAT(img.url) FROM image img WHERE img.product_id = p.id) pathImages");
+        sql.append(", p.created created");
         sql.append(" FROM product p JOIN product_categories pc ON p.id = pc.product_id");
-        sql.append(" JOIN category c ON c.id = pc.category_id");
         sql.append(" WHERE 1=1");
 
         if (!DataUtils.isNullOrEmpty(dataSearch.getKeySearch())) {
@@ -54,7 +52,7 @@ public class ProductRepoCustomImpl implements ProductRepoCustom {
             params.put("key", DataUtils.makeLikeStr(dataSearch.getKeySearch()));
         }
         if (!DataUtils.isNullOrEmpty(dataSearch.getCategoryIds()) && dataSearch.getCategoryIds().size() > 0) {
-            sql.append(" AND c.id IN (:categoryIds)");
+            sql.append(" AND pc.category_id IN (:categoryIds)");
             params.put("categoryIds", dataSearch.getCategoryIds());
         }
         if (!DataUtils.isNullOrEmpty(dataSearch.getPriceMin()) && !DataUtils.isNullOrEmpty(dataSearch.getPriceMax())) {

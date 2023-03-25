@@ -1,5 +1,11 @@
 package com.example.product_service.dto.object;
 
+import com.example.product_service.entity.CategoryEntity;
+import com.example.product_service.entity.ImageEntity;
+import com.example.product_service.entity.VoucherEntity;
+
+import java.util.List;
+
 public class ProductDTO {
     private Long id;
     private String title;
@@ -7,23 +13,20 @@ public class ProductDTO {
     private Double price;
     private Integer status;
     private String created;
-    private String categoryName;
-    private String categoryCode;
-    private String pathImages;
+    private List<CategoryEntity> categories;
+    private List<ImageEntity> images;
+    private List<VoucherEntity> vouchers;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String title, Integer quantity, Double price, Integer status, String created, String categoryName, String categoryCode, String pathImages) {
+    public ProductDTO(Long id, String title, Integer quantity, Double price, Integer status, String created) {
         this.id = id;
         this.title = title;
         this.quantity = quantity;
         this.price = price;
         this.status = status;
         this.created = created;
-        this.categoryName = categoryName;
-        this.categoryCode = categoryCode;
-        this.pathImages = pathImages;
     }
 
     public Long getId() {
@@ -74,27 +77,27 @@ public class ProductDTO {
         this.created = created;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public List<CategoryEntity> getCategories() {
+        return categories;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategories(List<CategoryEntity> categories) {
+        this.categories = categories;
     }
 
-    public String getCategoryCode() {
-        return categoryCode;
+    public List<ImageEntity> getImages() {
+        return images;
     }
 
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setImages(List<ImageEntity> images) {
+        this.images = images;
     }
 
-    public String getPathImages() {
-        return pathImages;
+    public List<VoucherEntity> getVouchers() {
+        return vouchers;
     }
 
-    public void setPathImages(String pathImages) {
-        this.pathImages = pathImages;
+    public void setVouchers(List<VoucherEntity> vouchers) {
+        this.vouchers = vouchers;
     }
 }

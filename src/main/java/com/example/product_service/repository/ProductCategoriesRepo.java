@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ProductCategoriesRepo extends JpaRepository<ProductCategoriesEntity,Long> {
     List<ProductCategoriesEntity> getAllByCategoryId (Long categoryId);
+    List<ProductCategoriesEntity> getAllByProductId (Long productId);
 }
