@@ -1,32 +1,13 @@
-package com.example.product_service.entity;
+package com.example.product_service.dto.object;
 
-import javax.persistence.*;
-import java.time.Instant;
+public class VoucherDTO {
 
-@Entity
-@Table(name = "voucher")
-public class VoucherEntity {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "discount")
     private Double discount;
-
-    @Column(name = "`condition`")
     private Integer condition;
-
-    @Column(name = "unit")
     private String unit;
-
-    @Column(name = "`start`")
-    private Instant start;
-
-    @Column(name = "`end`")
-    private Instant end;
-
-    @Column(name = "created")
+    private String start;
+    private String end;
     private String created;
 
     public Long getId() {
@@ -61,19 +42,19 @@ public class VoucherEntity {
         this.unit = unit;
     }
 
-    public Instant getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Instant start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Instant getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Instant end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

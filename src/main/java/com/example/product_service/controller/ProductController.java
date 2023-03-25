@@ -3,7 +3,9 @@ package com.example.product_service.controller;
 import com.example.product_service.dto.object.ProductDTO;
 import com.example.product_service.dto.request.SearchProductRequestDTO;
 import com.example.product_service.entity.ImageEntity;
+import com.example.product_service.entity.ProductEntity;
 import com.example.product_service.service.ProductService;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +30,29 @@ public class ProductController {
         return ResponseEntity.ok(pageData);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getOne (@PathVariable("id") Long id) {
+        return ResponseEntity.ok(productService.getOne(id));
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<ProductEntity> save (@RequestBody ProductEntity product) {
+        return ResponseEntity.ok(productService.save(product));
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<List<ImageEntity>> upload (@RequestParam("files") MultipartFile[] files,
                                                      @RequestParam("productId") Long productId) {
         return ResponseEntity.ok(productService.uploadImg(files, productId));
+    }
+
+    @PostMapping("/download")
+    public ResponseEntity<ByteArrayResource> download (@RequestParam("imageId") Long imageId) {
+        return ResponseEntity.ok(productService.downloadImg(imageId));
+    }
+
+    @PostMapping("/remove")
+    public void remove (@RequestParam("imageId") Long imageId) {
+        productService.removeImg(imageId);
     }
 }

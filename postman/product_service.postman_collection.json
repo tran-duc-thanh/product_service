@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "e3b10395-663e-48a0-a01d-9358462ccc4c",
+		"name": "product_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18790441"
+	},
+	"item": [
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "search product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"keySearch\": \"\",\r\n    \"categoryIds\": [1],\r\n    \"priceMin\": 50000,\r\n    \"priceMax\": 2000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/product/search?page=0&sort=title%2CDESC&size=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "title%2CDESC"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload image product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/Duc Thanh/Downloads/336119210_764855335218784_5033242742342506294_n.jpg"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/Duc Thanh/Downloads/335956093_2167323180321875_5600443603438509569_n.jpg"
+								},
+								{
+									"key": "productId",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/api/product/upload",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download image product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/product/download?imageId=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"download"
+							],
+							"query": [
+								{
+									"key": "imageId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove image product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/product/remove?imageId=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "imageId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get a product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/product/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save a product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":4,\r\n    \"title\":\"add product edit\",\r\n    \"quantity\": 3,\r\n    \"price\":200000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/product/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"tiêu dùng 1\",\r\n    \"code\": \"TIEU_DUNG\",\r\n    \"description\": \"alo\",\r\n    \"created\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/category/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add categories to product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 1,\r\n    \"categoryIds\":[2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/category/add-categories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category",
+								"add-categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "voucher",
+			"item": [
+				{
+					"name": "save voucher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"discount\": 12000.0,\r\n    \"condition\": 1,\r\n    \"unit\": \"test\",\r\n    \"start\": \"14/03/2023\",\r\n    \"end\": \"16/03/2023\",\r\n    \"created\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/voucher/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"voucher",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all voucher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/voucher",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"voucher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get a voucher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/voucher/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"voucher",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a voucher",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/voucher/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"voucher",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add vouchers to product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":1,\r\n    \"voucherIds\":[1,3,5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/voucher/add-vouchers",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"voucher",
+								"add-vouchers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

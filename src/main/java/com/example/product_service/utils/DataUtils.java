@@ -40,4 +40,14 @@ public class DataUtils {
             return defaultValue;
         }
     }
+
+    public static String safeToString (Object obj, String defaultvalua) {
+        if (obj == null) return defaultvalua;
+        if (obj instanceof String) return (String) obj;
+        return obj.toString();
+    }
+
+    public static String safeToString (Object obj){
+        return safeToString(obj, null);
+    }
 }

@@ -10,8 +10,10 @@ import com.example.product_service.entity.VoucherEntity;
 import com.example.product_service.repository.*;
 import com.example.product_service.service.MinioService;
 import com.example.product_service.service.ProductService;
+import com.example.product_service.utils.Constants;
 import com.example.product_service.utils.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -32,8 +35,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductCategoriesRepo productCategoriesRepo;
     private final ProductVouchersRepo productVouchersRepo;
     private final MinioService minioService;
+    private final ModelMapper modelMapper;
 
-    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo, ImageRepo imageRepo, VoucherRepo voucherRepo, ProductCategoriesRepo productCategoriesRepo, ProductVouchersRepo productVouchersRepo, MinioService minioService) {
+    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo, ImageRepo imageRepo, VoucherRepo voucherRepo, ProductCategoriesRepo productCategoriesRepo, ProductVouchersRepo productVouchersRepo, MinioService minioService, ModelMapper modelMapper) {
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
         this.imageRepo = imageRepo;
@@ -41,39 +45,31 @@ public class ProductServiceImpl implements ProductService {
         this.productCategoriesRepo = productCategoriesRepo;
         this.productVouchersRepo = productVouchersRepo;
         this.minioService = minioService;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public Page<ProductDTO> search(SearchProductRequestDTO dataSearch, Pageable pageable) {
         Page<ProductDTO> result = productRepo.search(dataSearch, pageable);
         result.getContent().forEach(product -> {
-            List<CategoryEntity> categories = new ArrayList<>();
-            productCategoriesRepo.getAllByProductId(product.getId()).forEach(item -> {
-                categories.add(categoryRepo.getById(item.getCategoryId()));
-            });
-            product.setCategories(categories);
-            product.setImages(imageRepo.getAllByProductId(product.getId()));
-            List<VoucherEntity> vouchers = new ArrayList<>();
-            productVouchersRepo.getAllByProductId(product.getId()).forEach(item -> {
-                vouchers.add(voucherRepo.getById(item.getVoucherId()));
-            });
+            setDataProduct(product);
         });
         return result;
     }
 
     @Override
-    public ProductEntity getOne(Long id) {
-        return null;
+    public ProductDTO getOne(Long id) {
+        ProductEntity product = productRepo.getById(id);
+        ProductDTO result = modelMapper.map(product, ProductDTO.class);
+        setDataProduct(result);
+        return result;
     }
 
     @Override
-    public ProductEntity add(ProductEntity product) {
-        return null;
-    }
-
-    @Override
-    public ProductEntity update(ProductEntity product) {
-        return null;
+    public ProductEntity save (ProductEntity product) {
+        if (product.getQuantity() > 0) product.setStatus(Constants.PRODUCT_STATUS.CON_HANG);
+        else product.setStatus(Constants.PRODUCT_STATUS.HET_HANG);
+        return productRepo.save(product);
     }
 
     @Override
@@ -107,12 +103,31 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ByteArrayResource downloadImg(String path) {
-        return null;
+    public ByteArrayResource downloadImg(Long imageId) {
+        Optional<ImageEntity> image = imageRepo.findById(imageId);
+        return image.isPresent() ? minioService.downloadFileShareReq(image.get().getUrl()) : null;
     }
 
     @Override
-    public void removeImg(String path) {
+    public void removeImg(Long imageId) {
+        Optional<ImageEntity> image = imageRepo.findById(imageId);
+        if (image.isPresent()) {
+            minioService.removeFile(image.get().getUrl());
+            imageRepo.deleteById(imageId);
+        }
+    }
 
+    private void setDataProduct (ProductDTO product) {
+        List<CategoryEntity> categories = new ArrayList<>();
+        productCategoriesRepo.getAllByProductId(product.getId()).forEach(item -> {
+            categories.add(categoryRepo.getById(item.getCategoryId()));
+        });
+        product.setCategories(categories);
+        product.setImages(imageRepo.getAllByProductId(product.getId()));
+        List<VoucherEntity> vouchers = new ArrayList<>();
+        productVouchersRepo.getAllByProductId(product.getId()).forEach(item -> {
+            vouchers.add(voucherRepo.getById(item.getVoucherId()));
+        });
+        product.setVouchers(vouchers);
     }
 }

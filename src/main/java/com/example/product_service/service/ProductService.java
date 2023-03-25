@@ -13,11 +13,10 @@ import java.util.List;
 
 public interface ProductService {
     Page<ProductDTO> search (SearchProductRequestDTO dataSearch, Pageable pageable);
-    ProductEntity getOne (Long id);
-    ProductEntity add (ProductEntity product);
-    ProductEntity update (ProductEntity product);
+    ProductDTO getOne (Long id);
+    ProductEntity save (ProductEntity product);
     void delete (Long productId);
     List<ImageEntity> uploadImg (MultipartFile[] files, Long productId);
-    ByteArrayResource downloadImg (String path);
-    void removeImg (String path);
+    ByteArrayResource downloadImg (Long imageId);
+    void removeImg (Long imageId);
 }
